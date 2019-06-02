@@ -99,12 +99,12 @@ function nfa(postExp) {
         if (token == '*') {
             stack.push(closure(stack.pop()));
         } else if (token == '|') {
-            let start = stack.pop();
             let end = stack.pop();
+            let start = stack.pop();
             stack.push(union(start, end));
         } else if (token == '.') {
-            let start = stack.pop();
             let end = stack.pop();
+            let start = stack.pop();
             stack.push(concat(start, end));
         } else {
             stack.push(createSymbolNfa(token));

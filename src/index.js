@@ -3,10 +3,10 @@ const nfa = require('./nfa');
 
 const search = require('./search');
 
-let posExp = in2post('abc|def');
+let posExp = in2post('a*bc');
 let nfaobj = nfa(posExp);
-// console.log(nfaobj);
+console.log(nfaobj);
 
-let isFind = search(nfaobj, 'def');
+let isFind = search(nfaobj, 'abc');
 
 console.log(isFind);
