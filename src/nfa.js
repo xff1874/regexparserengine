@@ -43,7 +43,7 @@ function createEpsilonNfa() {
  */
 
 function concat(s, t) {
-    addEpsilonTransitions(s, t);
+    addEpsilonTransitions(s.end, t.start);
     s.end.isEnd = false;
     return {
         start: s.start,
@@ -101,7 +101,7 @@ function nfa(postExp) {
             let start = stack.pop();
             let end = stack.pop();
             stack.push(union(start, end));
-        } else if (token == '·') {
+        } else if (token == '.') {
             let start = stack.pop();
             let end = stack.pop();
             stack.push(concat(start, end));

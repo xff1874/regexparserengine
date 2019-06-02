@@ -36,7 +36,7 @@ const operatorOrder = function(operator) {
             return 3;
         case '*':
             return 2;
-        case '·':
+        case '.':
             return 1;
         default:
             return 0;
@@ -67,7 +67,7 @@ function convertInfix2Post(exp) {
                 re += stack.pop();
             }
             stack.pop();
-        } else if (token == '|' || token == '*' || token == '·') {
+        } else if (token == '|' || token == '*' || token == '.') {
             while (
                 stack[stack.length - 1] &&
                 operatorOrder(stack[stack.length - 1]) >= operatorOrder(token)
