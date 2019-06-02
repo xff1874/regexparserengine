@@ -22,9 +22,62 @@ function insertConcatSign(exp) {
     return re;
 }
 
+/**
+ * use the stack stocking the operator.
+ * rule is http://csis.pace.edu/~wolf/CS122/infix-postfix.htm
+ * order | > * > .
+ * @param {} exp
+ * (a|b)*·c should be  ab|*c·
+ */
+
+const operatorOrder = function(operator) {
+    switch (operator) {
+        case '|':
+            return 3;
+        case '*':
+            return 2;
+        case '·':
+            return 1;
+        default:
+            return 0;
+    }
+};
+
+function convertInfix2Post(exp) {
+    let re = '';
+    let stack = [];
+    for (let i = 0; i < exp.length; i++) {
+        let token = exp[i];
+        if (token == '(') {
+            stack.push(token);
+        } else if (token == ')') {
+            while (stack[stack.length - 1] != '(') {
+                re += stack.pop();
+            }
+            stack.pop();
+        } else if (token == '|' || token == '*' || token == '·') {
+            while (
+                stack[stack.length - 1] &&
+                operatorOrder(stack[stack.length - 1]) >= operatorOrder(token)
+            ) {
+                re += stack.pop();
+            }
+            stack.push(token);
+        } else {
+            re += token;
+        }
+    }
+
+    while (stack.length) {
+        re += stack.pop();
+    }
+    return re;
+}
+
 function in2post(exp) {
     let concatExp = insertConcatSign(exp);
-    console.log(concatExp);
+    let postExp = convertInfix2Post('(a|b)*·c'); //ab|*c·
+    console.log(postExp);
 }
 
 module.exports = in2post;
