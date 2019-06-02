@@ -1,10 +1,7 @@
-function addNextState(state, nextStates, visited) {
+function addNextState(state, nextStates) {
     if (state.epsilonTransistions.length) {
         for (const st of state.epsilonTransistions) {
-            if (!visited.find(vs => vs == st)) {
-                visited.push(st);
-                addNextState(st, nextStates, visited);
-            }
+            addNextState(st, nextStates);
         }
     } else {
         nextStates.push(state);
@@ -13,14 +10,14 @@ function addNextState(state, nextStates, visited) {
 
 function search(nfa, word) {
     let currentStates = [];
-    addNextState(nfa.start, currentStates, []);
+    addNextState(nfa.start, currentStates);
 
     for (const symbol of word) {
         const nextStates = [];
         for (const state of currentStates) {
             const nextState = state.transition[symbol];
             if (nextState) {
-                addNextState(nextState, nextStates, []);
+                addNextState(nextState, nextStates);
             }
             currentStates = nextStates;
         }
