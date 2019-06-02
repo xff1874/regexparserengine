@@ -43,6 +43,18 @@ const operatorOrder = function(operator) {
     }
 };
 
+/**
+ * 如下
+ * https://juejin.im/post/5c738dd5e51d457fcb40aaaa
+ * 如果遇到字母，将其输出
+ * 如果遇到左括号，将其入栈
+ * 如果遇到右括号，将栈元素弹出并输出直到遇到左括号为止。左括号只弹出不输出
+ * 如果遇到限定符，依次弹出栈顶优先级大于或等于该限定符的限定符，然后将其入栈
+ * 如果读到了输入的末尾，则将栈中所有元素依次弹出
+ *
+ * @param {规则} exp
+ */
+
 function convertInfix2Post(exp) {
     let re = '';
     let stack = [];
@@ -76,8 +88,13 @@ function convertInfix2Post(exp) {
 
 function in2post(exp) {
     let concatExp = insertConcatSign(exp);
-    let postExp = convertInfix2Post('(a|b)*·c'); //ab|*c·
-    console.log(postExp);
+    // let postExp = convertInfix2Post('(a|b)*·c'); //ab|*c·
+    let postExp = convertInfix2Post(concatExp); //ab|*c·
+
+    console.log(
+        `exp is ${exp} and concatExp is ${concatExp} and postExp is ${postExp}`
+    );
+    return postExp;
 }
 
 module.exports = in2post;
