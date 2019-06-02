@@ -33,13 +33,13 @@ function insertConcatSign(exp) {
 const operatorOrder = function(operator) {
     switch (operator) {
         case '|':
-            return 3;
+            return 0;
         case '*':
             return 2;
         case '.':
             return 1;
         default:
-            return 0;
+            return -1;
     }
 };
 

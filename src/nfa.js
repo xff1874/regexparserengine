@@ -1,4 +1,4 @@
-let stateCount = 0;
+let stateCount = -1;
 /**
  *
  * @param {*} isEnd
@@ -7,11 +7,12 @@ let stateCount = 0;
  */
 
 function createState(isEnd) {
+    stateCount++;
     return {
         isEnd,
         transition: {},
         epsilonTransistions: [],
-        name: 'state' + stateCount++,
+        name: `q${stateCount}`,
     };
 }
 

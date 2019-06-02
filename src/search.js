@@ -12,12 +12,12 @@ function addNextState(state, nextStates, visited) {
 }
 
 function search(nfa, word) {
-    let currentState = [];
-    addNextState(nfa.start, currentState, []);
+    let currentStates = [];
+    addNextState(nfa.start, currentStates, []);
 
     for (const symbol of word) {
         const nextStates = [];
-        for (const state of currentState) {
+        for (const state of currentStates) {
             const nextState = state.transition[symbol];
             if (nextState) {
                 addNextState(nextState, nextStates, []);
