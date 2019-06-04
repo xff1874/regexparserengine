@@ -1,9 +1,9 @@
 function getEpsilionClosure(state, nextStates, visited) {
     if (state.epsilonTransistions.length) {
-        for (const st of state.epsilonTransistions) {
-            if (!visited.find(vs => vs === st)) {
-                visited.push(st);
-                getEpsilionClosure(st, nextStates, visited);
+        for (const se of state.epsilonTransistions) {
+            if (!visited.find(vs => vs === se)) {
+                visited.push(se);
+                getEpsilionClosure(se, nextStates, visited);
             }
         }
     } else {
@@ -16,17 +16,17 @@ function search(nfa, word) {
     getEpsilionClosure(nfa.start, currentStates, []);
 
     for (const c of word) {
-        const temp = [];
+        let temp = [];
         for (const cs of currentStates) {
-            let ns = cs.transition[c];
-            if (ns) {
-                getEpsilionClosure(ns, temp, []);
+            let nextState = cs.transition[c];
+            if (nextState) {
+                getEpsilionClosure(nextState, temp, []);
             }
         }
         currentStates = temp;
     }
 
-    return currentStates.find(s => s.isEnd) ? true : false;
+    return currentStates.find(cs => cs.isEnd) ? true : false;
 }
 
 function getEpsilionClousre(state, nextStates, visited) {
