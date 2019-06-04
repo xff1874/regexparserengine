@@ -3,11 +3,11 @@ const nfa = require('./nfa');
 
 const search = require('./search');
 
-let posExp = in2post('a*b');
+let posExp = in2post('ab*|def');
 let nfaobj = nfa(posExp);
 // console.log(nfaobj);
 
-let isFind = search(nfaobj, 'b');
+let isFind = search(nfaobj, 'deff');
 
 // 正则表达式一〉后缀树一〉NFA一〉DFA
 
